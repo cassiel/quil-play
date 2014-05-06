@@ -16,6 +16,7 @@
   (with-translation [(/ WIDTH 2) (/ HEIGHT 2) (- DEPTH)]
     (rotate-y (* (frame-count) 0.01))
     (rotate-x (* (frame-count) 0.01))
+    (rotate-z (* (frame-count) 0))
 
     (dorun
      (for [i (range (- MARGIN (/ DEPTH 2))
@@ -27,7 +28,11 @@
            k (range (- MARGIN WIDTH)
                     (- WIDTH MARGIN)
                     BOXSIZE)]
-       (let [box-fill (color (abs i) (abs j) (abs k) 50)]
+       (let [ #_ (color (abs i) (abs j) (abs k) 10)
+             c-idx (mod (+ i j k) 2)
+             c (* c-idx 255)
+             (color c c c 10)
+             box-fill ()]
          (with-translation [k j i]
            (fill box-fill)
            (box BOXSIZE BOXSIZE BOXSIZE)))))))
